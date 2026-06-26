@@ -23,7 +23,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.merge_commit_sha }}
 
-      - uses: praxisdigital/moodle-tag-action@<release-tag>
+      - uses: praxisdigital/moodle-tag-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
