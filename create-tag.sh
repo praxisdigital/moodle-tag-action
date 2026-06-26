@@ -35,12 +35,14 @@ import os
 import re
 import sys
 
-with open(os.environ["VERSION_FILE"], encoding="utf-8") as handle:
+version_file = os.environ["VERSION_FILE"]
+
+with open(version_file, encoding="utf-8") as handle:
     contents = handle.read()
 
-match = re.search(r"\$plugin->version\s*=\s*['\"]?(\d+)['\"]?\s*;", contents)
+match = re.search(r"\$plugin->version\s*=\s*(\d+)\s*;", contents)
 if not match:
-    sys.exit("Unable to find $plugin->version in version.php")
+    sys.exit(f"Unable to find $plugin->version in {version_file}")
 
 print(match.group(1))
 PY

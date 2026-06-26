@@ -25,7 +25,7 @@ jobs:
 
       - uses: praxisdigital/moodle-tag-action@main
         with:
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 By default the action reads `version.php`, extracts `$plugin->version`, and creates that value as the git tag. Use `tag_prefix` if you want to prepend a prefix such as `v`.
