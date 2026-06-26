@@ -42,7 +42,8 @@ with open(version_file, encoding="utf-8") as handle:
 
 match = re.search(r"\$plugin->version\s*=\s*(\d+)\s*;", contents)
 if not match:
-    sys.exit(f"Unable to find $plugin->version in {version_file}")
+    print(f"Unable to find $plugin->version in {version_file}", file=sys.stderr)
+    sys.exit(1)
 
 print(match.group(1))
 PY
