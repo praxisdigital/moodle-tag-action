@@ -1,0 +1,37 @@
+name: Moodle Plugin Version Tag
+description: On merge into the default branch, create a git tag from the Moodle plugin version in version.php
+author: praxisdigital
+
+branding:
+  icon: tag
+  color: orange
+
+outputs:
+  version:
+    description: Extracted Moodle plugin version number
+    value: ${{ steps.tag.outputs.version }}
+  tag:
+    description: Full tag name that was created (or would be created)
+    value: ${{ steps.tag.outputs.tag }}
+  created:
+    description: Whether a new tag was created (true/false)
+    value: ${{ steps.tag.outputs.created }}
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+      with:
+        token: ${{ github.token }}
+    - name: Create version tag
+      if: ${{ github.event_name == 'push'}}
+      id: tag
+      shell: bash
+      env:
+        INPUT_TOKEN: ${{ github.token }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_SHA: ${{ github.sha }}
+        GITHUB_REF_NAME: ${{ github.ref_name }}
+        DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      run: bash "${{ github.action_path }}/tag.sh"
