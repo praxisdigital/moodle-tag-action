@@ -19,7 +19,7 @@ jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: praxisdigital/moodle-tag-action@v1
+      - uses: praxisdigital/moodle-tag-action@main
 ```
 
 The action checks out the repository itself. It only creates a tag when the event is a **push** to the repository **default branch**. Merges into that branch are push events, so they are covered. Pushes to other branches are skipped.
